@@ -62,7 +62,6 @@ def logout_view(request):
     """
     auth_logout(request)
     messages.info(request, "Has tancat sessió.")
-    # Ajusta la URL de la pàgina principal segons el teu projecte
     return redirect("/")
 
 
