@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Inici | StreamEvents{% endblock %}
+
+{% block content %}
+<div class="text-center mt-5">
+  <h1 class="display-4 mb-3">🎬 Benvingut a StreamEvents!</h1>
+  <p class="lead">Descobreix i gestiona esdeveniments de streaming fàcilment.</p>
+  <a href="{% url 'users:login' %}" class="btn btn-primary btn-lg mt-3">Inicia sessió</a>
+  <a href="{% url 'users:register' %}" class="btn btn-outline-secondary btn-lg mt-3">Registra’t</a>
+</div>
+{% endblock %}
