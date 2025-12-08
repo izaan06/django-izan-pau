@@ -14,6 +14,9 @@ urlpatterns = [
     # Rutes de la teva app d’usuaris
     path("users/", include(("users.urls", "users"), namespace="users")),
 
+    # Rutes de l'app d'esdeveniments
+    path("events/", include(("events.urls", "events"), namespace="events")),
+    
     # Pàgina d'inici
     path("", home, name="home"),
 ]

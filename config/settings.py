@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
+    'events',
 ]
 
 MIDDLEWARE = [
@@ -136,9 +137,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-LOGIN_URL = 'login'
+LOGIN_URL = '/users/login/'
 LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'login'
+LOGOUT_REDIRECT_URL = '/users/login/'
+
 
 from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
@@ -152,3 +154,6 @@ messages.ERROR: 'danger',
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 SECURE_HSTS_SECONDS = 3600
+
+CSP_FRAME_SRC = ("'self'", "https://www.youtube.com", "https://www.youtube-nocookie.com")
+CSP_SCRIPT_SRC = ("'self'", "https://www.youtube.com", "https://s.ytimg.com")
