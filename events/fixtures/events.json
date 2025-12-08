@@ -1,0 +1,257 @@
+[
+  {
+    "model": "events.event",
+    "pk": 1,
+    "fields": {
+      "title": "Torneig de Fortnite",
+      "description": "Competició online de Fortnite.",
+      "creator": 1,
+      "category": "gaming",
+      "scheduled_date": "2025-12-10T18:00:00Z",
+      "status": "scheduled",
+      "thumbnail": "",
+      "max_viewers": 500,
+      "is_featured": true,
+      "tags": "fortnite,gaming,battle royale",
+      "stream_url": "https://www.twitch.tv/fortnite"
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 2,
+    "fields": {
+      "title": "Concert de Piano",
+      "description": "Recital de piano clàssic.",
+      "creator": 2,
+      "category": "music",
+      "scheduled_date": "2025-12-05T20:00:00Z",
+      "status": "live",
+      "thumbnail": "",
+      "max_viewers": 300,
+      "is_featured": false,
+      "tags": "piano,música,clàssica",
+      "stream_url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 3,
+    "fields": {
+      "title": "Xerrada sobre IA",
+      "description": "Discussió sobre intel·ligència artificial.",
+      "creator": 1,
+      "category": "talk",
+      "scheduled_date": "2025-12-03T17:00:00Z",
+      "status": "finished",
+      "thumbnail": "",
+      "max_viewers": 200,
+      "is_featured": false,
+      "tags": "IA,tecnologia,xerrada",
+      "stream_url": ""
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 4,
+    "fields": {
+      "title": "Curs de Python",
+      "description": "Aprèn Python en 2 hores.",
+      "creator": 2,
+      "category": "education",
+      "scheduled_date": "2025-12-07T15:00:00Z",
+      "status": "scheduled",
+      "thumbnail": "",
+      "max_viewers": 150,
+      "is_featured": true,
+      "tags": "python,programació,educació",
+      "stream_url": ""
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 5,
+    "fields": {
+      "title": "Partit de Futbol",
+      "description": "Final de la lliga local.",
+      "creator": 3,
+      "category": "sports",
+      "scheduled_date": "2025-12-08T19:00:00Z",
+      "status": "scheduled",
+      "thumbnail": "",
+      "max_viewers": 600,
+      "is_featured": true,
+      "tags": "futbol,esport,lliga",
+      "stream_url": "https://www.twitch.tv/futbol"
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 6,
+    "fields": {
+      "title": "Stand-up Comedy",
+      "description": "Nit d'humor online.",
+      "creator": 1,
+      "category": "entertainment",
+      "scheduled_date": "2025-12-04T21:00:00Z",
+      "status": "live",
+      "thumbnail": "",
+      "max_viewers": 250,
+      "is_featured": false,
+      "tags": "comèdia,humor,online",
+      "stream_url": "https://www.youtube.com/watch?v=3JZ_D3ELwOQ"
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 7,
+    "fields": {
+      "title": "Workshop de Fotografia",
+      "description": "Aprèn fotografia amb professionals.",
+      "creator": 2,
+      "category": "art",
+      "scheduled_date": "2025-12-09T14:00:00Z",
+      "status": "scheduled",
+      "thumbnail": "",
+      "max_viewers": 100,
+      "is_featured": false,
+      "tags": "fotografia,art,workshop",
+      "stream_url": ""
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 8,
+    "fields": {
+      "title": "Taller de Robòtica",
+      "description": "Robòtica per a principiants.",
+      "creator": 1,
+      "category": "technology",
+      "scheduled_date": "2025-12-06T16:00:00Z",
+      "status": "scheduled",
+      "thumbnail": "",
+      "max_viewers": 120,
+      "is_featured": false,
+      "tags": "robòtica,tecnologia,taller",
+      "stream_url": ""
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 9,
+    "fields": {
+      "title": "Espectacle de Circ",
+      "description": "Circ virtual en directe.",
+      "creator": 3,
+      "category": "entertainment",
+      "scheduled_date": "2025-12-05T18:30:00Z",
+      "status": "finished",
+      "thumbnail": "",
+      "max_viewers": 300,
+      "is_featured": false,
+      "tags": "circ,online,diversió",
+      "stream_url": ""
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 10,
+    "fields": {
+      "title": "Concert de Rock",
+      "description": "Banda de rock en directe.",
+      "creator": 1,
+      "category": "music",
+      "scheduled_date": "2025-12-11T20:00:00Z",
+      "status": "scheduled",
+      "thumbnail": "",
+      "max_viewers": 400,
+      "is_featured": true,
+      "tags": "rock,música,en viu",
+      "stream_url": "https://www.youtube.com/watch?v=Zi_XLOBDo_Y"
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 11,
+    "fields": {
+      "title": "Classe de Ioga",
+      "description": "Ioga online per a principiants.",
+      "creator": 2,
+      "category": "education",
+      "scheduled_date": "2025-12-03T09:00:00Z",
+      "status": "finished",
+      "thumbnail": "",
+      "max_viewers": 50,
+      "is_featured": false,
+      "tags": "ioga,salut,relaxació",
+      "stream_url": ""
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 12,
+    "fields": {
+      "title": "Partit de Bàsquet",
+      "description": "Lliga de bàsquet local.",
+      "creator": 3,
+      "category": "sports",
+      "scheduled_date": "2025-12-02T18:00:00Z",
+      "status": "finished",
+      "thumbnail": "",
+      "max_viewers": 350,
+      "is_featured": false,
+      "tags": "bàsquet,esport,lliga",
+      "stream_url": ""
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 13,
+    "fields": {
+      "title": "Mostra d'Art Modern",
+      "description": "Galeria online d'art modern.",
+      "creator": 1,
+      "category": "art",
+      "scheduled_date": "2025-12-06T17:00:00Z",
+      "status": "scheduled",
+      "thumbnail": "",
+      "max_viewers": 150,
+      "is_featured": false,
+      "tags": "art,galeria,online",
+      "stream_url": ""
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 14,
+    "fields": {
+      "title": "Torneig d'Escacs",
+      "description": "Competició d'escacs online.",
+      "creator": 2,
+      "category": "gaming",
+      "scheduled_date": "2025-12-07T12:00:00Z",
+      "status": "scheduled",
+      "thumbnail": "",
+      "max_viewers": 80,
+      "is_featured": false,
+      "tags": "escacs,gaming,torneig",
+      "stream_url": ""
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 15,
+    "fields": {
+      "title": "Conferència de Tecnologia",
+      "description": "Xerrades sobre tecnologia i startups.",
+      "creator": 1,
+      "category": "technology",
+      "scheduled_date": "2025-12-09T11:00:00Z",
+      "status": "scheduled",
+      "thumbnail": "",
+      "max_viewers": 200,
+      "is_featured": true,
+      "tags": "tecnologia,startups,xerrada",
+      "stream_url": ""
+    }
+  }
+]

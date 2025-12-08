@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}  
+
+{% block content %}
+<h1>{{ event.title }}</h1>
+<br>
+<img src="{{ event.thumbnail_or_default }}" class="img-fluid mb-3" alt="{{ event.title }}">
+
+<p>{{ event.description }}</p>
+<p>Categoria: {{ event.get_category_display }}</p>
+<p>Data: {{ event.scheduled_date }}</p>
+<p>Estat: {{ event.get_status_display }}</p>
+<p>Tags: 
+  {% for tag in event.get_tags_list %}
+    <span class="badge bg-secondary">{{ tag }}</span>
+  {% endfor %}
+</p>
+
+{% if event.stream_url %}
+<div class="ratio ratio-16x9 mb-3">
+  <iframe
+      src="{{ event.get_stream_embed_url }}"
+      allow="autoplay; fullscreen"
+      frameborder="0"
+      scrolling="no"
+      height="100%"
+      width="100%">
+  </iframe>
+</div>
+{% endif %}
+
+
+{% if is_creator %}
+  <a href="{% url 'events:event_update' event.pk %}" class="btn btn-warning mb-4">Editar</a>
+  <a href="{% url 'events:event_delete' event.pk %}" class="btn btn-danger mb-4">Eliminar</a>
+{% endif %}
+{% endblock %}

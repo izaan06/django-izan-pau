@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Esdeveniments</h1>
+
+{% if user.is_authenticated %}
+  <a href="{% url 'events:event_create' %}" class="btn btn-success mb-3">
+    Crear Esdeveniment
+  </a>
+{% endif %}
+<br>
+
+<form method="get">
+  {% include 'events/includes/event_filters.html' %}
+  <button type="submit" class="btn btn-primary mt-2">Filtrar</button>
+</form>
+
+<br>
+<div class="row">
+  {% for event in featured_events %}
+    <div class="col-md-4 mb-4">{% include 'events/includes/event_card.html' with event=event %}</div>
+  {% endfor %}
+</div>
+
+<h2>Tots els esdeveniments</h2>
+<br>
+<div class="row">
+  {% for event in page_obj %}
+    <div class="col-md-4 mb-4">{% include 'events/includes/event_card.html' with event=event %}</div>
+  {% endfor %}
+</div>
+
+<nav aria-label="Page navigation">
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a></li>
+    {% endif %}
+    <li class="page-item active"><span class="page-link">{{ page_obj.number }}</span></li>
+    {% if page_obj.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Següent</a></li>
+    {% endif %}
+  </ul>
+</nav>
+{% endblock %}

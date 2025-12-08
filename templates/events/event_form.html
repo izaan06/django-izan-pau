@@ -1,0 +1,11 @@
+<!-- templates/events/event_form.html -->
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Crear Esdeveniment</h1>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar</button>
+  </form>
+{% endblock %}

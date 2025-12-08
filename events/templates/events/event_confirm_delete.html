@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2 class="mb-4">Segur que vols eliminar "{{ event.title }}"?</h2>
+
+  <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">Eliminar</button>
+      <a href="{% url 'events:event_detail' event.id %}" class="btn btn-secondary">Cancel·lar</a>
+  </form>
+{% endblock %}
