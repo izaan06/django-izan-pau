@@ -19,6 +19,8 @@ urlpatterns = [
     
     # Pàgina d'inici
     path("", home, name="home"),
+    
+    path('chat/', include('chat.urls')),
 ]
 
 # Servir arxius multimèdia en mode DEBUG
