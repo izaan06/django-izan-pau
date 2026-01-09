@@ -1,0 +1,131 @@
+/* --------------------------
+   Contenidor del xat
+--------------------------- */
+.chat-container {
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+/* --------------------------
+   Capçalera
+--------------------------- */
+.chat-header {
+    background-color: #f8f9fa;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+}
+
+/* --------------------------
+   Àrea de missatges
+--------------------------- */
+.chat-messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    max-height: 450px;
+}
+
+/* Scrollbar personalitzat Webkit */
+.chat-messages::-webkit-scrollbar {
+    width: 8px;
+}
+.chat-messages::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.2);
+    border-radius: 4px;
+}
+.chat-messages::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+
+/* --------------------------
+   Missatges
+--------------------------- */
+.chat-message {
+    background-color: #f1f1f1;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.chat-message:hover {
+    background-color: #e2e6ea;
+}
+
+/* Missatges destacats */
+.chat-message.highlighted {
+    background-color: #fff3cd;
+    border-left: 5px solid #ffc107;
+}
+
+/* Capçalera del missatge */
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+.message-header strong {
+    font-weight: bold;
+}
+.message-header small {
+    color: #6c757d;
+    font-size: 0.8rem;
+}
+
+/* Contingut del missatge */
+.message-content {
+    word-wrap: break-word;
+    line-height: 1.4;
+}
+
+/* Accions del missatge */
+.message-actions {
+    text-align: right;
+}
+.message-actions button {
+    font-size: 0.75rem;
+    padding: 2px 6px;
+}
+
+/* --------------------------
+   Formulari
+--------------------------- */
+.chat-form {
+    padding: 15px;
+    border-top: 1px solid #ddd;
+    display: flex;
+    gap: 10px;
+}
+.chat-form textarea {
+    flex: 1;
+    resize: none;
+}
+
+/* --------------------------
+   Responsive
+--------------------------- */
+@media (max-width: 992px) {
+    .chat-container {
+        height: 400px;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    .chat-container {
+        height: 350px;
+        padding: 10px;
+    }
+    .chat-header,
+    .chat-form {
+        padding: 10px;
+    }
+}

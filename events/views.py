@@ -5,6 +5,8 @@ from django.core.paginator import Paginator
 from django.utils import timezone
 from .models import Event
 from .forms import EventCreationForm, EventUpdateForm, EventSearchForm
+from chat.forms import ChatMessageForm
+
 
 # Vista de llistat d'esdeveniments
 def event_list_view(request):
@@ -53,7 +55,8 @@ def event_detail_view(request, pk):
     is_creator = request.user == event.creator  # verificar si l'usuari és el creador
     return render(request, 'events/event_detail.html', {
         'event': event,
-        'is_creator': is_creator
+        'is_creator': is_creator,
+        'chat_form': ChatMessageForm(),
     })
 
 
