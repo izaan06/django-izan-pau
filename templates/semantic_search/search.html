@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="card shadow-sm border-0 rounded-4 overflow-hidden mb-5">
+            <div class="card-header bg-primary bg-gradient text-white p-4 text-center border-0">
+                <h1 class="display-6 fw-bold mb-0">
+                    <i class="fa fa-magic me-2"></i> Cerca Semàntica
+                </h1>
+                <p class="mb-0 opacity-75 mt-2">
+                    Busca esdeveniments amb llenguatge natural. Entenem el significat, no només les paraules.
+                </p>
+            </div>
+            <div class="card-body p-4 bg-light">
+                <form method="get" class="row g-3">
+                    <div class="col-md-8">
+                        <div class="input-group input-group-lg shadow-sm rounded-3 overflow-hidden">
+                            <span class="input-group-text bg-white border-0 text-muted">
+                                <i class="fa fa-search"></i>
+                            </span>
+                            <input type="text" name="q" class="form-control border-0 px-2" 
+                                   value="{{ query }}" 
+                                   placeholder="Ex: concert de jazz o marató de videojocs..."
+                                   aria-label="Cerca">
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex align-items-center">
+                        <div class="form-check form-switch me-3">
+                            <input class="form-check-input" type="checkbox" role="switch" id="futureEvents" 
+                                   name="only_future" value="1" {% if only_future %}checked{% endif %}>
+                            <label class="form-check-label text-secondary small fw-bold" for="futureEvents">Només futurs</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg shadow-sm flex-fill rounded-3 px-4 fw-bold">
+                            Cercar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        {% if query %}
+            <div class="d-flex align-items-center justify-content-between mb-4 px-2">
+                <div>
+                    <h3 class="h4 mb-0 fw-bold">Resultats de la cerca</h3>
+                    <small class="text-muted">Mostrant els millors resultats per a la teva consulta</small>
+                </div>
+                <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle px-3 py-2 rounded-pill small">
+                    <i class="fa fa-code me-1"></i> Model: {{ embedding_model|truncatechars:30 }}
+                </span>
+            </div>
+
+            {% if results %}
+                <div class="row g-4">
+                    {% for item in results %}
+                        <div class="col-md-6 mb-3">
+                            <div class="card h-100 shadow-sm hover-shadow transition-all border-0 rounded-4 overflow-hidden">
+                                <div class="row g-0 h-100">
+                                    <div class="col-4">
+                                        <div class="ratio ratio-1x1 h-100">
+                                            <img src="{{ item.event.thumbnail_or_default }}" class="object-fit-cover shadow-sm" alt="{{ item.event.title }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="card-body p-3 d-flex flex-column h-100">
+                                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                                <span class="badge bg-info bg-opacity-10 text-info px-2 py-1 rounded small text-uppercase fw-bold ls-1">
+                                                    {{ item.event.category }}
+                                                </span>
+                                                <div class="text-end">
+                                                    <small class="text-secondary d-block small mb-1">Similitud</small>
+                                                    <div class="progress" style="height: 6px; width: 60px;">
+                                                        <div class="progress-bar bg-success rounded progress-bar-dynamic" role="progressbar" 
+                                                             data-width="{{ item.score_pct }}" 
+                                                             aria-valuenow="{{ item.score_pct }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                    <small class="fw-bold p-0 text-success small">{{ item.score|floatformat:3 }}</small>
+                                                </div>
+                                            </div>
+                                            
+                                            <h5 class="card-title fw-bold mb-1 h6">
+                                                <a href="{{ item.event.get_absolute_url }}" class="text-decoration-none text-dark stretched-link">
+                                                    {{ item.event.title }}
+                                                </a>
+                                            </h5>
+                                            
+                                            <p class="card-text text-secondary small flex-grow-1 overflow-hidden" style="display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical;">
+                                                {{ item.event.description|truncatewords:15 }}
+                                            </p>
+                                            
+                                            <div class="mt-auto border-top pt-2 d-flex justify-content-between align-items-center">
+                                                <small class="text-muted">
+                                                    <i class="fa fa-calendar-alt me-1"></i> {{ item.event.scheduled_date|date:"d M, H:i" }}
+                                                </small>
+                                                <i class="fa fa-chevron-right text-light"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="text-center py-5 shadow-sm rounded-4 bg-white border border-dashed border-2 p-5">
+                    <div class="display-1 text-muted opacity-25 mb-3">
+                        <i class="fa fa-search-minus"></i>
+                    </div>
+                    <h4 class="text-muted fw-bold">Cap resultat trobat</h4>
+                    <p class="text-secondary mb-0">Prova de canviar la teva consulta o el filtre de temps.</p>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+
+<style>
+    .hover-shadow:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 .5rem 1.5rem rgba(0,0,0,.1) !important;
+    }
+    .transition-all {
+        transition: all 0.3s ease;
+    }
+    .ls-1 {
+        letter-spacing: 0.5px;
+    }
+    .border-dashed {
+        border-style: dashed !important;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.progress-bar-dynamic').forEach(function(el) {
+            const width = el.getAttribute('data-width');
+            if (width) el.style.width = width + '%';
+        });
+    });
+</script>
+{% endblock %}
