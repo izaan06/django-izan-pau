@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.db.models import JSONField
 from django.urls import reverse
 from datetime import timedelta
 from django.conf import settings
@@ -150,6 +151,11 @@ class Event(models.Model):
 
         # Si no és YouTube/Twitch, retorna la URL original
         return self.stream_url
+
+    # Camps per a cerca semàntica
+    embedding = models.JSONField(blank=True, null=True)  # llista de floats
+    embedding_model = models.CharField(max_length=200, blank=True, null=True)
+    embedding_updated_at = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         ordering = ['-created_at']  # Els més recents primer

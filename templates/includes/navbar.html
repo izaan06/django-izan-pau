@@ -10,6 +10,9 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'events:event_list' %}"><i class="fa fa-calendar"></i> Esdeveniments</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'semantic_search:semantic' %}"><i class="fa fa-search"></i> Cerca Semàntica</a>
+        </li>
         {% if user.is_authenticated %}
           <li class="nav-item"><a class="nav-link" href="{% url 'users:profile' %}"><i class="fa fa-user"></i> Perfil</a></li>
           <li class="nav-item"><a class="nav-link" href="{% url 'users:logout' %}">Tancar sessió</a></li>
