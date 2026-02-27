@@ -22,6 +22,7 @@ urlpatterns = [
     
     path('chat/', include('chat.urls')),
     path("", include("semantic_search.urls")),
+    path("", include("assistant_chat.urls")),
 ]
 
 # Servir arxius multimèdia en mode DEBUG
