@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+
+{% block title %}Assistent StreamEvents{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+            <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+                <div class="card-header bg-primary text-white p-4 d-flex justify-content-between align-items-center">
+                    <div>
+                        <h3 class="mb-0 fw-bold"><i class="fas fa-robot me-2"></i>Assistent StreamEvents</h3>
+                        <p class="mb-0 opacity-75">Pregunta sobre esdeveniments en català</p>
+                    </div>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="onlyFuture">
+                        <label class="form-check-label text-white small" for="onlyFuture">Només futurs</label>
+                    </div>
+                </div>
+                
+                <div class="card-body bg-light" id="chat-container" style="height: 500px; overflow-y: auto;">
+                    <div class="message assistant mb-4">
+                        <div class="d-flex align-items-start">
+                            <div class="bg-primary text-white rounded-circle p-2 me-3 shadow-sm">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="bg-white p-3 rounded-4 shadow-sm border bubble">
+                                Hola! Sóc el teu assistent de StreamEvents. En què et puc ajudar avui? Vols buscar algun tipus d'esdeveniment en concret?
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer bg-white border-top-0 p-4">
+                    <div class="input-group input-group-lg shadow-sm rounded-pill overflow-hidden border">
+                        <input type="text" id="user-input" class="form-control border-0 px-4" placeholder="Vull un concert de jazz..." aria-label="Missatge">
+                        <button class="btn btn-primary px-4" type="button" id="send-btn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bubble {
+        max-width: 85%;
+        position: relative;
+    }
+    .user .bubble {
+        background-color: #0d6efd !important;
+        color: white;
+    }
+    .assistant .bubble {
+        background-color: white;
+    }
+    #chat-container::-webkit-scrollbar {
+        width: 6px;
+    }
+    #chat-container::-webkit-scrollbar-thumb {
+        background-color: #dee2e6;
+        border-radius: 10px;
+    }
+    .event-card {
+        transition: transform 0.2s;
+    }
+    .event-card:hover {
+        transform: translateY(-5px);
+    }
+</style>
+
+<script>
+    const chatContainer = document.getElementById('chat-container');
+    const userInput = document.getElementById('user-input');
+    const sendBtn = document.getElementById('send-btn');
+    const onlyFuture = document.getElementById('onlyFuture');
+
+    function appendMessage(role, text, cards = [], followUp = '') {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${role} mb-4`;
+        
+        let html = '';
+        if (role === 'user') {
+            html = `
+                <div class="d-flex align-items-start flex-row-reverse">
+                    <div class="bg-secondary text-white rounded-circle p-2 ms-3 shadow-sm">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="bg-primary text-white p-3 rounded-4 shadow-sm bubble text-end">
+                        ${text}
+                    </div>
+                </div>
+            `;
+        } else {
+            let cardsHtml = '';
+            if (cards.length > 0) {
+                cardsHtml = '<div class="row row-cols-1 row-cols-md-2 g-3 mt-3">';
+                cards.forEach(card => {
+                    cardsHtml += `
+                        <div class="col">
+                            <div class="card h-100 border-0 shadow-sm event-card rounded-3 overflow-hidden">
+                                <div class="card-body p-3">
+                                    <h6 class="card-title fw-bold mb-1">${card.title}</h6>
+                                    <p class="card-text small text-muted mb-2">${card.category} | ${new Date(card.scheduled_date).toLocaleDateString('ca-ES')}</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill">Score: ${card.score}</span>
+                                        <a href="${card.url}" class="btn btn-sm btn-outline-primary rounded-pill">Veure més</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                cardsHtml += '</div>';
+            }
+
+            let followUpHtml = '';
+            if (followUp) {
+                followUpHtml = `<div class="mt-3 small text-muted italic"><em>${followUp}</em></div>`;
+            }
+
+            html = `
+                <div class="d-flex align-items-start">
+                    <div class="bg-primary text-white rounded-circle p-2 me-3 shadow-sm">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="bg-white p-3 rounded-4 shadow-sm border bubble">
+                        <div>${text}</div>
+                        ${cardsHtml}
+                        ${followUpHtml}
+                    </div>
+                </div>
+            `;
+        }
+        
+        messageDiv.innerHTML = html;
+        chatContainer.appendChild(messageDiv);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    async function sendMessage() {
+        const message = userInput.value.trim();
+        if (!message) return;
+
+        userInput.value = '';
+        appendMessage('user', message);
+
+        // Loading indicator
+        const loadingDiv = document.createElement('div');
+        loadingDiv.className = 'message assistant mb-4'
+        loadingDiv.id = 'loading-indicator';
+        loadingDiv.innerHTML = `
+            <div class="d-flex align-items-start">
+                <div class="bg-primary text-white rounded-circle p-2 me-3 shadow-sm">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="bg-white p-3 rounded-4 shadow-sm border bubble">
+                    <div class="spinner-border spinner-border-sm text-primary" role="status">
+                        <span class="visually-hidden">Pensant...</span>
+                    </div>
+                    <span class="ms-2">L'assistent està pensant...</span>
+                </div>
+            </div>
+        `;
+        chatContainer.appendChild(loadingDiv);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+
+        try {
+            const response = await fetch("{% url 'assistant_chat:api_chat' %}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    message: message,
+                    only_future: onlyFuture.checked
+                })
+            });
+
+            if (!response.ok) throw new Error("Error en la resposta");
+
+            const data = await response.json();
+            
+            document.getElementById('loading-indicator').remove();
+            appendMessage('assistant', data.answer, data.events, data.follow_up);
+        } catch (error) {
+            console.error(error);
+            document.getElementById('loading-indicator').remove();
+            appendMessage('assistant', "Ho sento, hi ha hagut un error en processar la teva petició.");
+        }
+    }
+
+    sendBtn.addEventListener('click', sendMessage);
+    userInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') sendMessage();
+    });
+</script>
+{% endblock %}
